@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.caffeineaddicted.ld37prep.screen.GameScreen;
 import de.caffeineaddicted.sgl.ApplicationConfiguration;
 import de.caffeineaddicted.sgl.AttributeList;
 import de.caffeineaddicted.sgl.SGL;
@@ -37,6 +38,7 @@ public class LD37Prep extends SGLGame {
 
     @Override
     protected void initScreens() {
+        provide(SGLRootScreen.class).loadScreen(new GameScreen());
     }
 
     @Override
