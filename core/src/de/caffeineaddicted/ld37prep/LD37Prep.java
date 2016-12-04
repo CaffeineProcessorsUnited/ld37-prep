@@ -29,7 +29,6 @@ public class LD37Prep extends SGLGame {
     @Override
     protected void initScreens() {
         provide(SGLRootScreen.class).loadScreen(new GameScreen());
-        provide(SGLRootScreen.class).showScreen(GameScreen.class, SGLRootScreen.ZINDEX.NEAREST);
 
     }
 

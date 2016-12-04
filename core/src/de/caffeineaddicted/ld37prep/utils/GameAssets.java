@@ -1,7 +1,6 @@
 package de.caffeineaddicted.ld37prep.utils;
 
 import com.badlogic.gdx.graphics.Texture;
-import de.caffeineaddicted.sgl.SGL;
 import de.caffeineaddicted.sgl.utils.Assets;
 
 public class GameAssets extends Assets {
@@ -17,9 +16,6 @@ public class GameAssets extends Assets {
 
     @Override
     public void load() {
-        load("raw/player.png", Texture.class);
-        load("raw/player.png", Texture.class);
-        load("raw/player.png", Texture.class);
         load("raw/player.png", Texture.class);
     }
 }
