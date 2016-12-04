@@ -1,28 +1,14 @@
 package de.caffeineaddicted.ld37prep;
 
 import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
 import de.caffeineaddicted.ld37prep.screen.GameScreen;
 import de.caffeineaddicted.ld37prep.utils.GameAssets;
 import de.caffeineaddicted.sgl.ApplicationConfiguration;
 import de.caffeineaddicted.sgl.AttributeList;
-import de.caffeineaddicted.sgl.SGL;
 import de.caffeineaddicted.sgl.SGLGame;
-import de.caffeineaddicted.sgl.input.SGLScreenInputMultiplexer;
-import de.caffeineaddicted.sgl.messages.Message;
-import de.caffeineaddicted.sgl.messages.MessageReceiver;
 import de.caffeineaddicted.sgl.ui.screens.SGLRootScreen;
-import de.caffeineaddicted.sgl.ui.screens.SGLScreen;
 import de.caffeineaddicted.sgl.utils.Assets;
 
 public class LD37Prep extends SGLGame {
@@ -43,6 +29,8 @@ public class LD37Prep extends SGLGame {
     @Override
     protected void initScreens() {
         provide(SGLRootScreen.class).loadScreen(new GameScreen());
+        provide(SGLRootScreen.class).showScreen(GameScreen.class, SGLRootScreen.ZINDEX.NEAREST);
+
     }
 
     @Override

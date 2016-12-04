@@ -53,7 +53,7 @@ public class Projectile extends Entity {
             }
         }
         
-        if (getY() >= GameScreen.height) {
+        if (getY() >= 0) {
             finished = true;
         }
     }

@@ -26,10 +26,13 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
 
     public void act(float delta) {
+        SGL.debug("ACT");
         for (Actor a: deleteLater) {
             stage.removeActor(a);
         }
         super.act(delta);
+        if(player != null)
+            player.act(delta);
     }
 
     @Override
@@ -68,26 +71,32 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
     @Override
     public void onHide() {
-
+        SGL.debug("HIDE");
     }
 
     @Override
     public void onShow() {
-
+        SGL.debug("SHOW");
     }
 
     @Override
     public void onPause() {
-
+        SGL.debug("PAUSE");
     }
 
     @Override
     public void onResume() {
-
+        SGL.debug("RESUME");
     }
 
     public void loseGame() {
 
+    }
+
+    @Override
+    public void draw() {
+        SGL.debug("DRAW");
+        super.draw();
     }
 
     public void addActor(Actor actor) {
