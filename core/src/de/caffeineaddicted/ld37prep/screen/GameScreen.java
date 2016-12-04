@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
+    public static float height = 5;
     private WaveGenerator waveGenerator;
     public ArrayList<Actor> deleteLater = new ArrayList<Actor>();
     private UnitPlayer player;
@@ -47,8 +48,16 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
     }
 
     @Override
+    public void create() { // fixed in 0.3.2
+        super.create();
+        stage.create();
+        onCreate();
+    }
+
+    @Override
     public void onCreate() {
         player = new UnitPlayer();
+        addActor(player);
         SGL.registerMessageReceiver(FireEverythingMessage.class, new MessageReceiver() {
             @Override
             public void receiveMessage(Message message) {

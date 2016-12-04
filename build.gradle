@@ -48,6 +48,7 @@ project(":desktop") {
     }
 }
 
+/*
 project(":android") {
     apply plugin: "android"
 
@@ -77,6 +78,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
     }
 }
+*/
 
 project(":core") {
     apply plugin: "java"

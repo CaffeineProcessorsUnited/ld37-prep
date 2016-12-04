@@ -1,6 +1,7 @@
 package de.caffeineaddicted.ld37prep;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.caffeineaddicted.ld37prep.screen.GameScreen;
+import de.caffeineaddicted.ld37prep.utils.GameAssets;
 import de.caffeineaddicted.sgl.ApplicationConfiguration;
 import de.caffeineaddicted.sgl.AttributeList;
 import de.caffeineaddicted.sgl.SGL;
@@ -21,6 +23,7 @@ import de.caffeineaddicted.sgl.messages.Message;
 import de.caffeineaddicted.sgl.messages.MessageReceiver;
 import de.caffeineaddicted.sgl.ui.screens.SGLRootScreen;
 import de.caffeineaddicted.sgl.ui.screens.SGLScreen;
+import de.caffeineaddicted.sgl.utils.Assets;
 
 public class LD37Prep extends SGLGame {
 
@@ -34,6 +37,7 @@ public class LD37Prep extends SGLGame {
     @Override
     protected void initGame() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        supply(Assets.class, new GameAssets());
     }
 
     @Override
@@ -43,6 +47,11 @@ public class LD37Prep extends SGLGame {
 
     @Override
     protected void startGame() {
+        provide(Assets.class).setup();
+        provide(Assets.class).preload();
+        provide(Assets.class).load();
+        provide(Assets.class).finishLoading();
+        provide(SGLRootScreen.class).showScreen(GameScreen.class, SGLRootScreen.ZINDEX.NEAR);
     }
 
     @Override
