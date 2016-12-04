@@ -1,6 +1,7 @@
 package de.caffeineaddicted.ld37prep;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
 import de.caffeineaddicted.ld37prep.screen.GameScreen;
@@ -28,7 +29,9 @@ public class LD37Prep extends SGLGame {
 
     @Override
     protected void initScreens() {
-        provide(SGLRootScreen.class).loadScreen(new GameScreen());
+        GameScreen screen = new GameScreen();
+        supply(GameScreen.class, screen);
+        provide(SGLRootScreen.class).loadScreen(screen);
 
     }
 

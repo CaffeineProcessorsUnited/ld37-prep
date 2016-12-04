@@ -4,6 +4,8 @@ import de.caffeineaddicted.ld37prep.LD37Prep;
 import de.caffeineaddicted.ld37prep.actor.UnitPlayer;
 import de.caffeineaddicted.ld37prep.message.FireEverythingMessage;
 import de.caffeineaddicted.ld37prep.wave.WaveGenerator;
+import de.caffeineaddicted.ld37prep.wave.WaveGeneratorBulk;
+import de.caffeineaddicted.ld37prep.wave.WaveGeneratorDefer;
 import de.caffeineaddicted.sgl.SGL;
 import de.caffeineaddicted.sgl.etities.Actor;
 import de.caffeineaddicted.sgl.etities.Group;
@@ -26,13 +28,17 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
 
     public void act(float delta) {
-        SGL.debug("ACT");
         for (Actor a: deleteLater) {
             stage.removeActor(a);
         }
         super.act(delta);
         if(player != null)
             player.act(delta);
+
+        if(waveGenerator != null)
+            waveGenerator.act(delta);
+        SGL.debug("Wave:" + waveGenerator.getWaveCount());
+        SGL.debug("Next:" + waveGenerator.getRemainingTime());
     }
 
     @Override
@@ -61,6 +67,12 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
     public void onCreate() {
         player = new UnitPlayer();
         addActor(player);
+        waveGenerator = new WaveGeneratorDefer();
+        waveGenerator.setMinSpawn(10);
+        waveGenerator.setMaxSpawn(20);
+        waveGenerator.setTickDeferTimer(5);
+        waveGenerator.setTickWaitTimer(5);
+        waveGenerator.setAutoSkipToNextWave(true);
         SGL.registerMessageReceiver(FireEverythingMessage.class, new MessageReceiver() {
             @Override
             public void receiveMessage(Message message) {
@@ -71,22 +83,21 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
     @Override
     public void onHide() {
-        SGL.debug("HIDE");
+
     }
 
     @Override
     public void onShow() {
-        SGL.debug("SHOW");
+
     }
 
     @Override
     public void onPause() {
-        SGL.debug("PAUSE");
+
     }
 
     @Override
-    public void onResume() {
-        SGL.debug("RESUME");
+    public void onResume(){
     }
 
     public void loseGame() {
@@ -95,12 +106,21 @@ public class GameScreen extends SGLStagedScreen<LD37Prep> {
 
     @Override
     public void draw() {
-        SGL.debug("DRAW");
         super.draw();
     }
 
     public void addActor(Actor actor) {
         stage.addActor(actor);
+    }
+
+    public int getNumActorsOfType(Class <? extends Actor> type){
+        int count = 0;
+        for(com.badlogic.gdx.scenes.scene2d.Actor actor: stage.getActors()){
+            if(type.isInstance(actor)){
+                count++;
+            }
+        }
+        return count;
     }
 
     public UnitPlayer getPlayer() {

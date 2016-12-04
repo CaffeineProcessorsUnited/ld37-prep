@@ -54,7 +54,6 @@ public class UnitPlayer extends UnitBase {
     @Override
     public void act(float delta) {
         super.act(delta);
-        SGL.debug("HALLLLOOOO");
     }
 
     @Override

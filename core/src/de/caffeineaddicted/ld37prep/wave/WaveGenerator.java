@@ -1,6 +1,10 @@
 package de.caffeineaddicted.ld37prep.wave;
 
 
+import com.badlogic.gdx.math.Vector2;
+import de.caffeineaddicted.ld37prep.actor.UnitEnemy;
+import de.caffeineaddicted.ld37prep.screen.GameScreen;
+import de.caffeineaddicted.sgl.SGL;
 import de.caffeineaddicted.sgl.utils.MathUtils;
 
 /**
@@ -14,6 +18,7 @@ abstract public class WaveGenerator {
     private float tickWaitTimer, currentWaitTimer;
     private float tickDeferTimer, currentDeferTimer;
     private State state;
+    private boolean autoSkipToNextWave = false;
 
     public WaveGenerator() {
         minSpawn = maxSpawn = 0;
@@ -23,9 +28,20 @@ abstract public class WaveGenerator {
         waveCount = 0;
     }
 
-    public void tick(float delta) {
+    public void act(float delta) {
+//        SGL.debug("+"+tickWaitTimer);
+//        SGL.debug("++"+currentWaitTimer);
+//        SGL.debug("-"+remainingSpawns);
+//        SGL.debug("#"+tickDeferTimer);
+//        SGL.debug("##"+currentDeferTimer);
         if (tickWaitTimer < 0)
             return;
+        if(autoSkipToNextWave){
+            int enemyCount = SGL.provide(GameScreen.class).getNumActorsOfType(UnitEnemy.class);
+            if(enemyCount <= 0){
+                skipToNextWave();
+            }
+        }
         if (state == State.NEXTWAVE) {
             currentWaitTimer += delta;
             if (currentWaitTimer > tickWaitTimer) {
@@ -44,6 +60,14 @@ abstract public class WaveGenerator {
                     state = State.NEXTWAVE;
             }
         }
+    }
+
+    protected void doSpawn(){
+        UnitEnemy enemy = new UnitEnemy(UnitEnemy.Type.getRandom(getWaveCount()), 1 + 0.02f * getWaveCount());
+        Vector2 pos = new Vector2(100,100);
+        SGL.provide(GameScreen.class).addActor(enemy);
+        enemy.setPosition(pos);
+        SGL.debug("SPAWN");
     }
 
     abstract protected void spawn();
@@ -94,6 +118,14 @@ abstract public class WaveGenerator {
 
     public void setTickDeferTimer(float tickDeferTimer) {
         this.tickDeferTimer = tickDeferTimer;
+    }
+
+    public boolean canAutoSkipToNextWave() {
+        return autoSkipToNextWave;
+    }
+
+    public void setAutoSkipToNextWave(boolean autoSkipToNextWave) {
+        this.autoSkipToNextWave = autoSkipToNextWave;
     }
 
     public float getRemainingTime() {

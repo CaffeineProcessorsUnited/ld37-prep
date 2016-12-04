@@ -17,5 +17,10 @@ public class GameAssets extends Assets {
     @Override
     public void load() {
         load("raw/player.png", Texture.class);
+        load("raw/enemy_boss.png", Texture.class);
+        load("raw/enemy_tank.png", Texture.class);
+        load("raw/enemy_fast.png", Texture.class);
+        load("raw/enemy_normal.png", Texture.class);
+
     }
 }

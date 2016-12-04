@@ -2,6 +2,7 @@ package de.caffeineaddicted.ld37prep.actor;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import de.caffeineaddicted.ld37prep.screen.GameScreen;
 import de.caffeineaddicted.sgl.SGL;
 import de.caffeineaddicted.sgl.etities.Image;
@@ -41,6 +42,17 @@ public class UnitEnemy extends UnitBase {
     @Override
     public void act(float delta) {
         super.act(delta);
+        Vector2 position = getCenterPoint();
+        Vector2 target = new Vector2(800,600);
+        if(position.dst(target) > (speed * delta)){
+            Vector2 direction = target.cpy().sub(position).nor();
+            SGL.debug("+++"+direction.x+"--"+direction.y);
+            moveBy(direction.x * delta * speed,
+                    direction.y * delta * speed
+                    );
+        } else {
+            onDie();
+        }
     }
 
     @Override
